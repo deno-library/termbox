@@ -32,6 +32,6 @@ Deno.test(`test position`, async () => {
   const termbox = new TermBox();
   console.log("stdout isatty: ", Deno.isatty(Deno.stdout.rid));
   console.log("stdin isatty: ", Deno.isatty(Deno.stdin.rid));
-  console.log(await termbox.position());
+  console.log(await termbox.cursorPosition());
   termbox.end();
 });
