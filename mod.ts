@@ -1,7 +1,7 @@
 const ESC = "\x1B[";
 
-const SAVE = "\x1B7";
-const RESTORE = "\x1B8";
+const SAVE = "\x1B7"; // \x1B[s
+const RESTORE = "\x1B8"; // \x1B[u
 const HIDE = "?25l";
 const SHOW = "?25h";
 
@@ -63,11 +63,11 @@ export default class TermBox {
   }
 
   cursorSave(): Promise<void> {
-    return this.cursor(SAVE);
+    return this.write(SAVE);
   }
 
   cursorRestore(): Promise<void> {
-    return this.cursor(RESTORE);
+    return this.write(RESTORE);
   }
 
   cursorTo(x: number, y: number): Promise<void> {

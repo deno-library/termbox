@@ -5,7 +5,7 @@ Termbox is a deno package that provides a cell based view for text terminals.
 ## Usage
 
 ```ts
-import TermBox from "https://deno.land/x/termbox@v0.1.0/mod.ts";
+import TermBox from "https://deno.land/x/termbox@v0.1.1/mod.ts";
 
 const termbox = new TermBox();
 
