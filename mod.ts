@@ -1,7 +1,7 @@
 const ESC = "\x1B[";
 
-const SAVE = "\x1B7"; // \x1B[s
-const RESTORE = "\x1B8"; // \x1B[u
+const SAVE = "\x1B7"; // "\x1B[s"
+const RESTORE = "\x1B8"; // "\x1B[u"
 const HIDE = "?25l";
 const SHOW = "?25h";
 
@@ -79,7 +79,7 @@ export default class TermBox {
   }
 
   screenReset(): Promise<void> {
-    return this.write("\x1b[" + (this.rows - 1) + "A\r\x1b[?0J");
+    return this.write(ESC + (this.rows - 1) + "A\r\x1b[?0J");
   }
 
   size(): Size {
