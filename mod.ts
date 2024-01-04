@@ -4,12 +4,13 @@ const SAVE = "\x1B7"; // "\x1B[s"
 const RESTORE = "\x1B8"; // "\x1B[u"
 const HIDE = "?25l";
 const SHOW = "?25h";
+const POSITION = "6n";
 
 const CLEAR_SCREEN = "2J";
 
 const HOME = "H";
 
-const isTTY = Deno.isatty(Deno.stdout.rid);
+const isTTY = Deno.isatty(Deno.stdout.rid) && Deno.isatty(Deno.stdin.rid);
 
 interface Size {
   columns: number;
@@ -72,6 +73,32 @@ export default class TermBox {
 
   cursorTo(x: number, y: number): Promise<void> {
     return this.cursor(`${y};${x}${HOME}`);
+  }
+
+  async cursorPosition(): Promise<Size> {
+    if (!isTTY) {
+      return { columns: 0, rows: 0 };
+    }
+
+    this.cursor(POSITION);
+
+    Deno.stdin.setRaw(true);
+
+    const buf = new Uint8Array(100);
+    await Deno.stdin.read(buf);
+
+    Deno.stdin.setRaw(false);
+
+    const output = new TextDecoder().decode(buf);
+    const match = output.match(/\[(\d+);(\d+)R/);
+
+    if (match) {
+      const rows = parseInt(match[1]);
+      const columns = parseInt(match[2]);
+      return { columns, rows };
+    } else {
+      throw new Error("cannot get cursor position");
+    }
   }
 
   screenClear(): Promise<void> {
