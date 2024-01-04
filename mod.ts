@@ -40,8 +40,8 @@ export default class TermBox {
     return this.writer.write(this.encoder.encode(msg));
   }
 
-  flush(): Promise<void> {
-    this.cursorTo(0, 0);
+  async flush(): Promise<void> {
+    await this.cursorTo(0, 0);
     return this.write(this.cells.map((v) => v.join("")).join("\n"));
   }
 
