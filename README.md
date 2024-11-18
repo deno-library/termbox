@@ -1,5 +1,7 @@
 # termbox
 
+[![JSR Version](https://jsr.io/badges/@deno-library/termbox)](https://jsr.io/@deno-library/termbox)
+
 Termbox is a deno package that provides a cell based view for text terminals.
 
 ## Usage
