@@ -10,7 +10,7 @@ const CLEAR_SCREEN = "2J";
 
 const HOME = "H";
 
-const isTTY = Deno.isatty(Deno.stdout.rid) && Deno.isatty(Deno.stdin.rid);
+const isTTY = Deno.stdout.isTerminal;
 
 interface Size {
   columns: number;
